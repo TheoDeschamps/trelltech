@@ -16,6 +16,7 @@ object AuthController {
         route("/auth") {
             get("/login") {
                 val authUrl = SecurityConfig.getAuthUrl()
+                logger.info("Redirecting to Trello with URL: $authUrl")
                 call.respondRedirect(authUrl)
             }
 

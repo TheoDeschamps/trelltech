@@ -9,7 +9,8 @@ class AuthCallbackActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val uri: Uri? = intent?.data
-        val token = uri?.getQueryParameter("token")
+        val fragment = uri?.fragment
+        val token = fragment?.substringAfter("token=")
         if (!token.isNullOrEmpty()) {
             SecurityModule.storeToken(this, token)
         }
