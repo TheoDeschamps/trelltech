@@ -1,6 +1,9 @@
 package com.trelltech
 
+import com.trelltech.config.DatabaseFactory
 import com.trelltech.controllers.AuthController.authRoutes
+import com.trelltech.controllers.tokenRoutes
+import com.trelltech.services.TokenService
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -8,6 +11,9 @@ import io.ktor.server.plugins.origin
 import io.ktor.server.routing.*
 import io.ktor.server.response.*
 import org.slf4j.LoggerFactory
+import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.json.Json
 
 var logger = LoggerFactory.getLogger("Application")
 
@@ -17,7 +23,21 @@ fun main() {
     }.start(wait = true)
 }
 
+
 fun Application.module() {
+
+    install(ContentNegotiation) {
+        json(
+            Json {
+                prettyPrint = true
+                isLenient = true
+                ignoreUnknownKeys = true
+            }
+        )
+    }
+
+    DatabaseFactory.init()
+    val tokenService = TokenService()
     routing {
         get("/") {
             call.respondText("Trelltech API is running! on ${call.request.origin.host}")
@@ -25,5 +45,6 @@ fun Application.module() {
         }
 
         authRoutes()
+        tokenRoutes(tokenService)
     }
 }
