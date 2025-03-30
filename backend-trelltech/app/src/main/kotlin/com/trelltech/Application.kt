@@ -2,8 +2,10 @@ package com.trelltech
 
 import com.trelltech.config.DatabaseFactory
 import com.trelltech.controllers.AuthController.authRoutes
+import com.trelltech.controllers.boardRoutes
 import com.trelltech.controllers.tokenRoutes
 import com.trelltech.services.TokenService
+import com.trelltech.services.TrelloService
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -38,6 +40,7 @@ fun Application.module() {
 
     DatabaseFactory.init()
     val tokenService = TokenService()
+    val trelloService = TrelloService()
     routing {
         get("/") {
             call.respondText("Trelltech API is running! on ${call.request.origin.host}")
@@ -46,5 +49,6 @@ fun Application.module() {
 
         authRoutes()
         tokenRoutes(tokenService)
+        boardRoutes(trelloService)
     }
 }
