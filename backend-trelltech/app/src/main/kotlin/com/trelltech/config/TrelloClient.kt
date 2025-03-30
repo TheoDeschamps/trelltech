@@ -29,6 +29,9 @@ class TrelloClient(private val token: String) {
     private val baseUrl = "https://api.trello.com/1"
     private val apiKey = dotenv["TRELLO_CLIENT_ID"] ?: error("Missing TRELLO_CLIENT_ID in env")
 
+    //////// BOARDS R////////
+    // TODO ajouter create/update/delete ici ensuite les boards
+
     suspend fun getBoards(): List<TrelloBoard> {
         val response: HttpResponse = client.get("$baseUrl/members/me/boards") {
             parameter("key", apiKey)
@@ -39,6 +42,9 @@ class TrelloClient(private val token: String) {
         return response.body<List<TrelloBoard>>()
     }
 
+    //////// LISTS R////////
+    // TODO ajouter create/update/delete ici ensuite les lists
+
     suspend fun getLists(boardId: String): List<TrelloList> {
         val response: HttpResponse = client.get("$baseUrl/boards/$boardId/lists") {
             parameter("key", apiKey)
@@ -48,6 +54,8 @@ class TrelloClient(private val token: String) {
 
         return response.body<List<TrelloList>>()
     }
+
+    //////// CARDS CRUD////////
 
     suspend fun getCards(listId: String): List<TrelloCard> {
         val response: HttpResponse = client.get("$baseUrl/lists/$listId/cards") {
@@ -94,9 +102,23 @@ class TrelloClient(private val token: String) {
         }
     }
 
+    suspend fun updateCard(cardId: String, name: String?, desc: String?): TrelloCard {
+        val response: HttpResponse = client.put("$baseUrl/cards/$cardId") {
+            parameter("key", apiKey)
+            parameter("token", token)
+            if (name != null) parameter("name", name)
+            if (desc != null) parameter("desc", desc)
+        }
+
+        if (!response.status.isSuccess()) {
+            throw RuntimeException("Erreur Trello: ${response.status} - ${response.bodyAsText()}")
+        }
+
+        return response.body()
+    }
 
 
-    // TODO ajouter create/update/delete ici ensuite
+    // TODO CRUD pour les workspaces
 }
 
 

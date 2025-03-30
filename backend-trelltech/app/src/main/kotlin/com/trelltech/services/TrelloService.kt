@@ -10,6 +10,7 @@ import com.trelltech.models.TrelloList
 
 class TrelloService {
 
+    ////////TOKENS////////
     private fun getTokenForUser(userId: String): String? {
         return transaction {
             Tokens
@@ -19,6 +20,7 @@ class TrelloService {
         }
     }
 
+    ////////BOARDS R////////
     suspend fun getBoards(userId: String): List<TrelloBoard> {
         val token = getTokenForUser(userId)
             ?: throw IllegalStateException("Token not found for user $userId")
@@ -27,6 +29,7 @@ class TrelloService {
         return client.getBoards()
     }
 
+    ////////LISTS R////////
     suspend fun getLists(boardId: String, userId: String): List<TrelloList> {
         val token = getTokenForUser(userId)
             ?: throw IllegalStateException("Token not found for user $userId")
@@ -35,6 +38,7 @@ class TrelloService {
         return client.getLists(boardId)
     }
 
+    ////////CARDS CRUD////////
     suspend fun getCards(listId: String, userId: String): List<TrelloCard> {
         val token = getTokenForUser(userId) ?: throw Exception("Token not found")
         return TrelloClient(token).getCards(listId)
@@ -53,6 +57,11 @@ class TrelloService {
     suspend fun assignMember(cardId: String, memberId: String, userId: String) {
         val token = getTokenForUser(userId) ?: throw Exception("Token not found")
         TrelloClient(token).assignMemberToCard(cardId, memberId)
+    }
+
+    suspend fun updateCard(cardId: String, name: String?, desc: String?, userId: String): TrelloCard {
+        val token = getTokenForUser(userId) ?: throw Exception("Token not found")
+        return TrelloClient(token).updateCard(cardId, name, desc)
     }
 
 }

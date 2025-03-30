@@ -79,4 +79,25 @@ fun Route.cardRoutes() {
         }
     }
 
+    patch("/cards/{cardId}") {
+        val cardId = call.parameters["cardId"]
+        val params = call.receive<Map<String, String>>()
+        val name = params["name"]
+        val desc = params["desc"]
+        val userId = params["userId"]
+
+        if (cardId == null || userId == null) {
+            return@patch call.respond(HttpStatusCode.BadRequest, "Missing cardId or userId")
+        }
+
+        try {
+            val card = TrelloService().updateCard(cardId, name, desc, userId)
+            call.respond(card)
+        } catch (e: Exception) {
+            call.application.environment.log.error("Error updating card", e)
+            call.respond(HttpStatusCode.InternalServerError, "Unable to update card")
+        }
+    }
+
+
 }
