@@ -2,6 +2,7 @@ plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.8.20"
     id("io.ktor.plugin") version "2.3.3"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.20"
     // Apply the application plugin to add support for building a CLI application in Java.
     application
 }
@@ -47,12 +48,6 @@ dependencies {
 
     // PostgreSQL JDBC Driver
     implementation("org.postgresql:postgresql:42.5.4")
-
-    implementation("io.ktor:ktor-server-content-negotiation:2.3.3")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.3")
-
-
-
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
