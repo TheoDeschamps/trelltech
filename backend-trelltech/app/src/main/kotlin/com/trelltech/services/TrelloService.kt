@@ -40,30 +40,30 @@ class TrelloService (
         return client.getLists(boardId)
     }
 
-    ////////CARDS CRUD////////
+    ////////CARDS////////
     suspend fun getCards(listId: String, userId: String): List<TrelloCard> {
         val token = getTokenForUser(userId) ?: throw Exception("Token not found")
-        return TrelloClient(token).getCards(listId)
+        return clientFactory(token).getCards(listId)
     }
 
     suspend fun createCard(listId: String, name: String, desc: String?, userId: String): TrelloCard {
         val token = getTokenForUser(userId) ?: throw Exception("Token not found")
-        return TrelloClient(token).createCard(listId, name, desc)
+        return clientFactory(token).createCard(listId, name, desc)
     }
 
     suspend fun deleteCard(cardId: String, userId: String) {
         val token = getTokenForUser(userId) ?: throw Exception("Token not found")
-        TrelloClient(token).deleteCard(cardId)
+        clientFactory(token).deleteCard(cardId)
     }
 
     suspend fun assignMember(cardId: String, memberId: String, userId: String) {
         val token = getTokenForUser(userId) ?: throw Exception("Token not found")
-        TrelloClient(token).assignMemberToCard(cardId, memberId)
+        clientFactory(token).assignMemberToCard(cardId, memberId)
     }
 
     suspend fun updateCard(cardId: String, name: String?, desc: String?, userId: String): TrelloCard {
         val token = getTokenForUser(userId) ?: throw Exception("Token not found")
-        return TrelloClient(token).updateCard(cardId, name, desc)
+        return clientFactory(token).updateCard(cardId, name, desc)
     }
 
     ////////WORKSPACE R////////
