@@ -9,6 +9,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import io.github.cdimascio.dotenv.dotenv
 import com.trelltech.models.TrelloBoard
+import com.trelltech.models.TrelloList
 import io.ktor.client.call.body
 
 class TrelloClient(private val token: String) {
@@ -36,14 +37,14 @@ class TrelloClient(private val token: String) {
         return response.body<List<TrelloBoard>>()
     }
 
-
-    suspend fun getLists(boardId: String): List<Map<String, Any>> {
+    suspend fun getLists(boardId: String): List<TrelloList> {
         val response: HttpResponse = client.get("$baseUrl/boards/$boardId/lists") {
             parameter("key", apiKey)
             parameter("token", token)
+            parameter("fields", "all")
         }
 
-        return response.body<List<Map<String, Any>>>()
+        return response.body<List<TrelloList>>()
     }
 
     suspend fun getCards(listId: String): List<Map<String, Any>> {
