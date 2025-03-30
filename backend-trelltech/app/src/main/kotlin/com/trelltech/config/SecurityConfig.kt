@@ -28,11 +28,13 @@ object SecurityConfig {
 
     fun getAuthUrl(): String {
         val encodedRedirectUri = URLEncoder.encode(REDIRECT_URI, "UTF-8")
-        val authUrl = "$AUTHORIZE_URL?response_type=token&key=$CLIENT_ID&return_url=$encodedRedirectUri&callback_method=fragment"
+        val scopes = "read,write,account"
+        val authUrl = "$AUTHORIZE_URL?response_type=token&key=$CLIENT_ID&scope=$scopes&return_url=$encodedRedirectUri&callback_method=fragment"
 
         logger.info("Generated Trello Auth URL: $authUrl")
         return authUrl
     }
+
 
     suspend fun getAccessToken(token: String): TrelloTokenResponse? {
         val response: HttpResponse = httpClient.get(ACCESS_TOKEN_URL) {
