@@ -9,7 +9,9 @@ import com.trelltech.models.TrelloCard
 import com.trelltech.models.TrelloList
 import com.trelltech.models.TrelloWorkspace
 
-class TrelloService {
+class TrelloService (
+    private val clientFactory: (String) -> TrelloClient = { TrelloClient(it) }
+) {
 
     ////////TOKENS////////
     private fun getTokenForUser(userId: String): String? {
@@ -26,8 +28,7 @@ class TrelloService {
         val token = getTokenForUser(userId)
             ?: throw IllegalStateException("Token not found for user $userId")
 
-        val client = TrelloClient(token)
-        return client.getBoards()
+        return clientFactory(token).getBoards()
     }
 
     ////////LISTS R////////

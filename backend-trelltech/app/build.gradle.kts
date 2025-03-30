@@ -22,7 +22,7 @@ dependencies {
 
     // Use the JUnit 5 integration.
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
-
+    testImplementation("io.mockk:mockk:1.13.8")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     // This dependency is used by the application.
