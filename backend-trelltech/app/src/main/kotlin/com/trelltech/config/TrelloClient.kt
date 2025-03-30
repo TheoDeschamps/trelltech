@@ -12,6 +12,7 @@ import com.trelltech.models.TrelloBoard
 import com.trelltech.models.TrelloCard
 import com.trelltech.models.TrelloList
 import io.ktor.client.call.body
+import io.ktor.http.isSuccess
 
 class TrelloClient(private val token: String) {
 
@@ -64,8 +65,14 @@ class TrelloClient(private val token: String) {
             parameter("name", name)
             if (desc != null) parameter("desc", desc)
         }
+
+        if (!response.status.isSuccess()) {
+            val errorText = response.bodyAsText()
+            throw RuntimeException("Erreur Trello: ${response.status} - $errorText")
+        }
         return response.body()
     }
+
 
     suspend fun deleteCard(cardId: String) {
         client.delete("$baseUrl/cards/$cardId") {
@@ -74,15 +81,22 @@ class TrelloClient(private val token: String) {
         }
     }
 
-    suspend fun assignMemberToCard(cardId: String, memberId: String): TrelloCard {
+    suspend fun assignMemberToCard(cardId: String, memberId: String) {
         val response: HttpResponse = client.post("$baseUrl/cards/$cardId/idMembers") {
             parameter("key", apiKey)
             parameter("token", token)
             parameter("value", memberId)
         }
-        return response.body()
+
+        if (!response.status.isSuccess()) {
+            val errorText = response.bodyAsText()
+            throw RuntimeException("Erreur Trello assignation : ${response.status} - $errorText")
+        }
     }
+
 
 
     // TODO ajouter create/update/delete ici ensuite
 }
+
+

@@ -50,9 +50,9 @@ class TrelloService {
         TrelloClient(token).deleteCard(cardId)
     }
 
-    suspend fun assignMember(cardId: String, memberId: String, userId: String): TrelloCard {
+    suspend fun assignMember(cardId: String, memberId: String, userId: String) {
         val token = getTokenForUser(userId) ?: throw Exception("Token not found")
-        return TrelloClient(token).assignMemberToCard(cardId, memberId)
+        TrelloClient(token).assignMemberToCard(cardId, memberId)
     }
 
 }

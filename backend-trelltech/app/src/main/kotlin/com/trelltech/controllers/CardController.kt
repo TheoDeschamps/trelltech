@@ -71,11 +71,12 @@ fun Route.cardRoutes() {
         }
 
         try {
-            val card = TrelloService().assignMember(cardId, memberId, userId)
-            call.respond(card)
+            TrelloService().assignMember(cardId, memberId, userId)
+            call.respond(HttpStatusCode.NoContent) // ✅ ou OK
         } catch (e: Exception) {
             call.application.environment.log.error("Error assigning member", e)
             call.respond(HttpStatusCode.InternalServerError, "Unable to assign member")
         }
     }
+
 }
