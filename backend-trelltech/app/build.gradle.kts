@@ -34,7 +34,9 @@ dependencies {
     implementation("io.ktor:ktor-server-netty:2.3.3")
     implementation("io.ktor:ktor-server-auth:2.3.3")
     implementation("io.ktor:ktor-server-content-negotiation:2.3.3")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.3")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.3")
+    implementation("io.ktor:ktor-client-core:2.3.3")
     // logback dependencies
     implementation("ch.qos.logback:logback-classic:1.4.12")
 
@@ -48,6 +50,7 @@ dependencies {
 
     implementation("io.ktor:ktor-server-content-negotiation:2.3.3")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.3")
+
 
 
 }
