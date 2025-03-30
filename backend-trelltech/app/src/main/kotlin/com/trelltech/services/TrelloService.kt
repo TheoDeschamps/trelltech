@@ -7,6 +7,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import com.trelltech.models.TrelloBoard
 import com.trelltech.models.TrelloCard
 import com.trelltech.models.TrelloList
+import com.trelltech.models.TrelloWorkspace
 
 class TrelloService {
 
@@ -62,6 +63,12 @@ class TrelloService {
     suspend fun updateCard(cardId: String, name: String?, desc: String?, userId: String): TrelloCard {
         val token = getTokenForUser(userId) ?: throw Exception("Token not found")
         return TrelloClient(token).updateCard(cardId, name, desc)
+    }
+
+    ////////WORKSPACE R////////
+    suspend fun getWorkspaces(userId: String): List<TrelloWorkspace> {
+        val token = getTokenForUser(userId) ?: throw Exception("Token not found")
+        return TrelloClient(token).getWorkspaces()
     }
 
 }

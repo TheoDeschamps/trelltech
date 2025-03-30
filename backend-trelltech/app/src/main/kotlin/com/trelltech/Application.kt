@@ -6,6 +6,7 @@ import com.trelltech.controllers.boardRoutes
 import com.trelltech.controllers.cardRoutes
 import com.trelltech.controllers.listRoutes
 import com.trelltech.controllers.tokenRoutes
+import com.trelltech.controllers.workspaceRoutes
 import com.trelltech.services.TokenService
 import com.trelltech.services.TrelloService
 import io.ktor.server.application.*
@@ -54,5 +55,6 @@ fun Application.module() {
         boardRoutes(trelloService)
         listRoutes()
         cardRoutes()
+        workspaceRoutes()
     }
 }

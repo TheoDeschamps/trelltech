@@ -11,6 +11,7 @@ import io.github.cdimascio.dotenv.dotenv
 import com.trelltech.models.TrelloBoard
 import com.trelltech.models.TrelloCard
 import com.trelltech.models.TrelloList
+import com.trelltech.models.TrelloWorkspace
 import io.ktor.client.call.body
 import io.ktor.http.isSuccess
 
@@ -118,7 +119,18 @@ class TrelloClient(private val token: String) {
     }
 
 
-    // TODO CRUD pour les workspaces
+    //////// WORKSPACES R////////
+    // TODO CUD pour les workspaces
+
+    suspend fun getWorkspaces(): List<TrelloWorkspace> {
+        val response: HttpResponse = client.get("$baseUrl/members/me/organizations") {
+            parameter("key", apiKey)
+            parameter("token", token)
+        }
+        return response.body()
+    }
+
+
 }
 
 
