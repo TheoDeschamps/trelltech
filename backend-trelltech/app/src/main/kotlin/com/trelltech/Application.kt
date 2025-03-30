@@ -3,6 +3,7 @@ package com.trelltech
 import com.trelltech.config.DatabaseFactory
 import com.trelltech.controllers.AuthController.authRoutes
 import com.trelltech.controllers.boardRoutes
+import com.trelltech.controllers.cardRoutes
 import com.trelltech.controllers.listRoutes
 import com.trelltech.controllers.tokenRoutes
 import com.trelltech.services.TokenService
@@ -52,5 +53,6 @@ fun Application.module() {
         tokenRoutes(tokenService)
         boardRoutes(trelloService)
         listRoutes()
+        cardRoutes()
     }
 }
