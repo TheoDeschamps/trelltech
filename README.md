@@ -56,7 +56,7 @@ GET /token/{userId}
 Récupère le token Trello d’un utilisateur
 
 ### 🧩 Boards
-GET /boards?userId={userId}
+GET /boards/{userId}
 Récupère les boards de l’utilisateur
 
 ### 🧾 Lists
