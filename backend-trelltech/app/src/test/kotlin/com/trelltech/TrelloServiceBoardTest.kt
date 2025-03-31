@@ -1,10 +1,11 @@
 package com.trelltech
 
+import com.trelltech.config.TrelloClient
 import com.trelltech.models.Tokens
 import com.trelltech.models.TrelloBoard
 import com.trelltech.services.TrelloService
 import io.mockk.coEvery
-import io.mockk.mockkConstructor
+import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -16,7 +17,10 @@ import kotlin.test.assertEquals
 
 class TrelloServiceBoardTest {
 
+    private val mockedClient = mockk<TrelloClient>()
     private lateinit var service: TrelloService
+    private val testUserId = "testUser"
+    private val testToken = "mockToken"
 
     @BeforeEach
     fun setup() {
@@ -25,16 +29,15 @@ class TrelloServiceBoardTest {
             SchemaUtils.drop(Tokens)
             SchemaUtils.create(Tokens)
             Tokens.insert {
-                it[userId] = "testUser"
-                it[token] = "mockToken"
+                it[userId] = testUserId
+                it[token] = testToken
             }
         }
-        service = TrelloService()
-        mockkConstructor(com.trelltech.config.TrelloClient::class)
+        service = TrelloService(clientFactory = { mockedClient })
     }
 
     @Test
-    fun `getBoards should return list of TrelloBoard`() = runBlocking {
+    fun getBoardsShouldReturnListOfTrelloBoard() = runBlocking {
         val expectedBoards = listOf(
             TrelloBoard(
                 id = "1",
@@ -46,11 +49,8 @@ class TrelloServiceBoardTest {
                 starred = false
             )
         )
-
-        coEvery { anyConstructed<com.trelltech.config.TrelloClient>().getBoards() } returns expectedBoards
-
-        val result = service.getBoards("testUser")
-
+        coEvery { mockedClient.getBoards() } returns expectedBoards
+        val result = service.getBoards(testUserId)
         assertEquals(expectedBoards, result)
     }
 }
