@@ -5,7 +5,6 @@
       <module name="com-trelltech.app" target="23" />
       <module name="com-trelltech.app.main" target="23" />
       <module name="com-trelltech.app.test" target="23" />
-      <module name="frontend-trelltech.app.main" target="17" />
       <module name="frontend-trelltech.app.test" target="17" />
     </bytecodeTargetLevel>
   </component>

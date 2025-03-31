@@ -19,7 +19,7 @@ object SecurityConfig {
 
     private val CLIENT_ID: String by lazy { dotenv["TRELLO_CLIENT_ID"] ?: "your-client-id" }
     private val CLIENT_SECRET: String by lazy { dotenv["TRELLO_CLIENT_SECRET"] ?: "your-client-secret" }
-    private val REDIRECT_URI: String = "http://localhost:8080/auth/callback"
+    private val REDIRECT_URI: String = "trelltech://callback"
 
     private const val AUTHORIZE_URL = "https://trello.com/1/authorize"
     private const val ACCESS_TOKEN_URL = "https://trello.com/1/oauth/token"
@@ -28,11 +28,13 @@ object SecurityConfig {
 
     fun getAuthUrl(): String {
         val encodedRedirectUri = URLEncoder.encode(REDIRECT_URI, "UTF-8")
-        val authUrl = "$AUTHORIZE_URL?response_type=token&key=$CLIENT_ID&return_url=$encodedRedirectUri&callback_method=fragment"
+        val scopes = "read,write,account"
+        val authUrl = "$AUTHORIZE_URL?response_type=token&key=$CLIENT_ID&scope=$scopes&return_url=$encodedRedirectUri&callback_method=fragment"
 
-        //println("Generated Trello Auth URL: $authUrl")
+        logger.info("Generated Trello Auth URL: $authUrl")
         return authUrl
     }
+
 
     suspend fun getAccessToken(token: String): TrelloTokenResponse? {
         val response: HttpResponse = httpClient.get(ACCESS_TOKEN_URL) {
