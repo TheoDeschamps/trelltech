@@ -7,3 +7,5 @@ build
 # Ignore env file
 .env
 /http-requests/test-api-cards.http
+
+local.properties
