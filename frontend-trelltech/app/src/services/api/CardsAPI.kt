@@ -2,7 +2,7 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 
-class Cards {
+class CardsAPI {
     fun getById(id: String) {}
     fun create(name: String, idList: String) {}
     fun create(name: String, idList: String, params: Class<S>) {

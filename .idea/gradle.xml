@@ -4,25 +4,29 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="testRunner" value="CHOOSE_PER_TEST" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/backend-trelltech" />
-        <option name="gradleHome" value="C:/Gradle" />
-        <option name="gradleJvm" value="corretto-19" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../../../Gradle" />
+        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/backend-trelltech" />
             <option value="$PROJECT_DIR$/backend-trelltech/app" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="testRunner" value="CHOOSE_PER_TEST" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/frontend-trelltech" />
-        <option name="gradleJvm" value="corretto-19" />
+        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/frontend-trelltech" />
             <option value="$PROJECT_DIR$/frontend-trelltech/app" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
