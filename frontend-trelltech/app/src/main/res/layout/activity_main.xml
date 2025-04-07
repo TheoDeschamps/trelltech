@@ -4,7 +4,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#F9FAFB">
 
     <Button
             android:id="@+id/buttonAuth"
@@ -16,5 +20,17 @@
             android:id="@+id/textToken"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="bonjour"
             android:layout_marginTop="24dp"/>
+
+    <TextView
+        android:id="@+id/textSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current workspace :"/>
+
+    <TextView
+        android:id="@+id/textBoard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

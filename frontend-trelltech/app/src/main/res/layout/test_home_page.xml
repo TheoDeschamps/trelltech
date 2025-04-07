@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auto layout, variables, and unit scale are not yet supported -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/home"
+    android:layout_width="509dp"
+    android:layout_height="1083dp"
+    android:clipToOutline="true"
+    android:background="#FFFFFF"
+    />
