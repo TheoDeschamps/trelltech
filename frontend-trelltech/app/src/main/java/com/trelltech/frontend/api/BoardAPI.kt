@@ -14,7 +14,7 @@ class BoardAPI {
         val response: HttpResponse = client.get {
             url {
                 protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
+                host = "127.0.0.1:8080"
                 appendPathSegments("boards", userId)
             }
         }
@@ -24,7 +24,7 @@ class BoardAPI {
 //        val response: HttpResponse = client.get {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards", id, "members")
 //            }
 //        }
@@ -34,7 +34,7 @@ class BoardAPI {
 //        val response: HttpResponse = client.get {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards", id, "memberships")
 //            }
 //        }
@@ -44,7 +44,7 @@ class BoardAPI {
 //        val response: HttpResponse = client.get {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards", id, "checklists")
 //            }
 //        }
@@ -54,7 +54,7 @@ class BoardAPI {
 //        val response: HttpResponse = client.get {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards", id, "cards")
 //            }
 //        }
@@ -64,7 +64,7 @@ class BoardAPI {
 //        val response: HttpResponse = client.get {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards", id, "cards", filter)
 //            }
 //        }
@@ -74,7 +74,7 @@ class BoardAPI {
 //        val response: HttpResponse = client.get {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards", id, "labels")
 //                parameters.append("fields", fields)
 //                parameters.append("limit", limit)
@@ -86,7 +86,7 @@ suspend fun getLists(boardId:String, userId: String) {
     val response: HttpResponse = client.get {
         url {
             protocol = URLProtocol.HTTP
-            host = " http://127.0.0.1:8080"
+            host = "127.0.0.1:8080"
             appendPathSegments("boards", boardId, "lists")
             parameters.append("userId", userId)
         }
@@ -97,7 +97,7 @@ suspend fun getLists(boardId:String, userId: String) {
 //        val response: HttpResponse = client.get {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards", boardId, "lists")
 //                parameters.append("cards", cards)
 //                parameters.append("card_fields", card_fields)
@@ -111,7 +111,7 @@ suspend fun getLists(boardId:String, userId: String) {
 //        val response: HttpResponse = client.get {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards", id, "lists")
 //                parameters.append("filter", filter)
 //            }
@@ -124,7 +124,7 @@ suspend fun getLists(boardId:String, userId: String) {
         val response: HttpResponse = client.post {
             url {
                 protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
+                host = "127.0.0.1:8080"
                 appendPathSegments("boards")
                 parameters.append("name", name)
             }
@@ -139,7 +139,7 @@ suspend fun getLists(boardId:String, userId: String) {
 //        val response: HttpResponse = client.post {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards")
 //                parameters.append("name", name)
 //            }
@@ -151,7 +151,7 @@ suspend fun getLists(boardId:String, userId: String) {
 //        val response: HttpResponse = client.post {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards")
 //                parameters.append("name", name)
 //                parameters.append("color", color)
@@ -164,7 +164,7 @@ suspend fun getLists(boardId:String, userId: String) {
         val response: HttpResponse = client.post {
             url {
                 protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
+                host = "127.0.0.1:8080"
                 appendPathSegments("boards", id, "lists")
                 parameters.append("name", name)
                 parameters.append("pos", pos)
@@ -179,7 +179,7 @@ suspend fun getLists(boardId:String, userId: String) {
 //        val response: HttpResponse = client.put {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards")
 //                parameters.append("name", name)
 //            }
@@ -193,7 +193,7 @@ suspend fun getLists(boardId:String, userId: String) {
 //        val response: HttpResponse = client.put {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards")
 //                parameters.append("name", name)
 //            }
@@ -206,7 +206,7 @@ suspend fun getLists(boardId:String, userId: String) {
 //        val response: HttpResponse = client.put {
 //            url {
 //                protocol = URLProtocol.HTTP
-//                host = " http://127.0.0.1:8080"
+//                host = "127.0.0.1:8080"
 //                appendPathSegments("boards")
 //                parameters.append("name", name)
 //            }
@@ -218,7 +218,7 @@ suspend fun getLists(boardId:String, userId: String) {
         val response: HttpResponse = client.put{
             url {
                 protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
+                host = "127.0.0.1:8080"
                 appendPathSegments("boards", id, "members")
                 parameters.append("email", email)
                 parameters.append("type", type)
@@ -229,7 +229,7 @@ suspend fun getLists(boardId:String, userId: String) {
         val response: HttpResponse = client.put{
             url {
                 protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
+                host = "127.0.0.1:8080"
                 appendPathSegments("boards", id, "members", idMember)
                 parameters.append("type", type)
                 parameters.append("allowBillableGuest", allowBillableGuest.toString())
@@ -240,7 +240,7 @@ suspend fun getLists(boardId:String, userId: String) {
         val response: HttpResponse = client.put{
             url {
                 protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
+                host = "127.0.0.1:8080"
                 appendPathSegments("boards", id, "memberships", idMembership)
                 parameters.append("type", type)
                 parameters.append("member_fields", member_fields)
@@ -253,7 +253,7 @@ suspend fun getLists(boardId:String, userId: String) {
         val response: HttpResponse = client.delete {
             url {
                 protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
+                host = "127.0.0.1:8080"
                 appendPathSegments("boards", id)
             }
         }
@@ -262,7 +262,7 @@ suspend fun getLists(boardId:String, userId: String) {
         val response: HttpResponse = client.delete {
             url {
                 protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
+                host = "127.0.0.1:8080"
                 appendPathSegments("boards", id, "members", idMember)
             }
         }

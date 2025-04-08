@@ -27,7 +27,7 @@ class CardsAPI {
         return response
     }
     
-    suspend fun assign( cardId: String, memberId: String, userId: String, params: Map<String, String>): HttpResponse {
+    suspend fun assign( cardId: String, memberId: String, userId: String): HttpResponse {
         val response: HttpResponse = client.post {
             url { 
                 protocol = URLProtocol.HTTP
@@ -35,7 +35,6 @@ class CardsAPI {
                 appendPathSegments("cards", cardId, "assign")
                 parameters.append("memberId", memberId)
                 parameters.append("userId", userId)
-
             }
         }
         return response
