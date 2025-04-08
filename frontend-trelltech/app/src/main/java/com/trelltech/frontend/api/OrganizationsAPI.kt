@@ -14,8 +14,8 @@ class OrganizationsAPI {
     suspend fun getActions(id: String) {
         val response: HttpResponse = client.get {
             url {
-                protocol = URLProtocol.HTTPS
-                host = "localhost:8080"
+                protocol = URLProtocol.HTTP
+                host = " http://127.0.0.1:8080"
                 appendPathSegments("organizations", id, "actions")
             }
         }
@@ -24,8 +24,8 @@ class OrganizationsAPI {
     suspend fun get(id: String): HttpResponse {
         val response: HttpResponse = client.get {
             url {
-                protocol = URLProtocol.HTTPS
-                host = "localhost:8080"
+                protocol = URLProtocol.HTTP
+                host = " http://127.0.0.1:8080"
                 appendPathSegments("organizations", id)
             }
         }
@@ -34,8 +34,8 @@ class OrganizationsAPI {
     suspend fun getBoards(id: String): HttpResponse {
         val response: HttpResponse = client.get {
             url {
-                protocol = URLProtocol.HTTPS
-                host = "localhost:8080"
+                protocol = URLProtocol.HTTP
+                host = " http://127.0.0.1:8080"
                 appendPathSegments("organizations", id, "boards")
             }
         }
@@ -44,8 +44,8 @@ class OrganizationsAPI {
     suspend fun create(displayName: String, desc: String, website: String) {
         val response: HttpResponse = client.post {
             url {
-                protocol = URLProtocol.HTTPS
-                host = "localhost:8080"
+                protocol = URLProtocol.HTTP
+                host = " http://127.0.0.1:8080"
                 appendPathSegments("organizations")
                 parameters.append("displayName", displayName)
                 parameters.append("desc", desc)
@@ -57,8 +57,8 @@ class OrganizationsAPI {
     suspend fun update(id: String, name: String, displayName: String, desc: String, website: String) {
         val response: HttpResponse = client.put {
             url {
-                protocol = URLProtocol.HTTPS
-                host = "localhost:8080"
+                protocol = URLProtocol.HTTP
+                host = " http://127.0.0.1:8080"
                 appendPathSegments("organizations", id)
                 parameters.append("name", name)
                 parameters.append("displayName", displayName)
@@ -70,8 +70,8 @@ class OrganizationsAPI {
     suspend fun delete(id: String) {
         val response: HttpResponse = client.delete {
             url {
-                protocol = URLProtocol.HTTPS
-                host = "localhost:8080"
+                protocol = URLProtocol.HTTP
+                host = " http://127.0.0.1:8080"
                 appendPathSegments("organizations", id)
             }
         }
