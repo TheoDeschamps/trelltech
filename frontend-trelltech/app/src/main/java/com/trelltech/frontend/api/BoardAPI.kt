@@ -10,103 +10,114 @@ import io.ktor.http.*
 class BoardAPI {
     private val client = HttpClient(CIO)
 //    get
-    suspend fun get(id: String): HttpResponse {
+    suspend fun get(userId: String): HttpResponse {
         val response: HttpResponse = client.get {
             url {
                 protocol = URLProtocol.HTTP
                 host = " http://127.0.0.1:8080"
-                appendPathSegments("boards", id)
+                appendPathSegments("boards", userId)
             }
         }
-        return response.body()
+        return response
     }
-    suspend fun getMembers(id: String) {
-        val response: HttpResponse = client.get {
-            url {
-                protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
-                appendPathSegments("boards", id, "members")
-            }
+//    suspend fun getMembers(id: String) {
+//        val response: HttpResponse = client.get {
+//            url {
+//                protocol = URLProtocol.HTTP
+//                host = " http://127.0.0.1:8080"
+//                appendPathSegments("boards", id, "members")
+//            }
+//        }
+//        return response.body()
+//    }
+//    suspend fun getMemberships(id: String) {
+//        val response: HttpResponse = client.get {
+//            url {
+//                protocol = URLProtocol.HTTP
+//                host = " http://127.0.0.1:8080"
+//                appendPathSegments("boards", id, "memberships")
+//            }
+//        }
+//        return response.body()
+//    }
+//    suspend fun getChecklists(id: String) {
+//        val response: HttpResponse = client.get {
+//            url {
+//                protocol = URLProtocol.HTTP
+//                host = " http://127.0.0.1:8080"
+//                appendPathSegments("boards", id, "checklists")
+//            }
+//        }
+//        return response.body()
+//    }
+//    suspend fun getCards(id: String) {
+//        val response: HttpResponse = client.get {
+//            url {
+//                protocol = URLProtocol.HTTP
+//                host = " http://127.0.0.1:8080"
+//                appendPathSegments("boards", id, "cards")
+//            }
+//        }
+//        return response.body()
+//    }
+//    suspend fun getCards(id: String, filter: String) {
+//        val response: HttpResponse = client.get {
+//            url {
+//                protocol = URLProtocol.HTTP
+//                host = " http://127.0.0.1:8080"
+//                appendPathSegments("boards", id, "cards", filter)
+//            }
+//        }
+//        return response.body()
+//    }
+//    suspend fun getLabels(id: String, fields: String, limit: String) {
+//        val response: HttpResponse = client.get {
+//            url {
+//                protocol = URLProtocol.HTTP
+//                host = " http://127.0.0.1:8080"
+//                appendPathSegments("boards", id, "labels")
+//                parameters.append("fields", fields)
+//                parameters.append("limit", limit)
+//            }
+//        }
+//        return response.body()
+//    }
+suspend fun getLists(boardId:String, userId: String) {
+    val response: HttpResponse = client.get {
+        url {
+            protocol = URLProtocol.HTTP
+            host = " http://127.0.0.1:8080"
+            appendPathSegments("boards", boardId, "lists")
+            parameters.append("userId", userId)
         }
-        return response.body()
     }
-    suspend fun getMemberships(id: String) {
-        val response: HttpResponse = client.get {
-            url {
-                protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
-                appendPathSegments("boards", id, "memberships")
-            }
-        }
-        return response.body()
-    }
-    suspend fun getChecklists(id: String) {
-        val response: HttpResponse = client.get {
-            url {
-                protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
-                appendPathSegments("boards", id, "checklists")
-            }
-        }
-        return response.body()
-    }
-    suspend fun getCards(id: String) {
-        val response: HttpResponse = client.get {
-            url {
-                protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
-                appendPathSegments("boards", id, "cards")
-            }
-        }
-        return response.body()
-    }
-    suspend fun getCards(id: String, filter: String) {
-        val response: HttpResponse = client.get {
-            url {
-                protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
-                appendPathSegments("boards", id, "cards", filter)
-            }
-        }
-        return response.body()
-    }
-    suspend fun getLabels(id: String, fields: String, limit: String) {
-        val response: HttpResponse = client.get {
-            url {
-                protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
-                appendPathSegments("boards", id, "labels")
-                parameters.append("fields", fields)
-                parameters.append("limit", limit)
-            }
-        }
-        return response.body()
-    }
-    suspend fun getLists(id:String, cards:String, card_fields:String, filter: String, fields: String) {
-        val response: HttpResponse = client.get {
-            url {
-                protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
-                appendPathSegments("boards", id, "lists")
-                parameters.append("cards", cards)
-                parameters.append("card_fields", card_fields)
-                parameters.append("filter", filter)
-                parameters.append("fields", fields)
-            }
-        }
-        return response.body()
-    }
-    suspend fun getFilteredLists(id: String, filter: String) {
-        val response: HttpResponse = client.get {
-            url {
-                protocol = URLProtocol.HTTP
-                host = " http://127.0.0.1:8080"
-                appendPathSegments("boards", id, "lists")
-                parameters.append("filter", filter)
-            }
-        }
-        return response.body()
-    }
+    return response.body()
+}
+//    suspend fun getLists(boardId:String, cards:String, card_fields:String, filter: String, fields: String) {
+//        val response: HttpResponse = client.get {
+//            url {
+//                protocol = URLProtocol.HTTP
+//                host = " http://127.0.0.1:8080"
+//                appendPathSegments("boards", boardId, "lists")
+//                parameters.append("cards", cards)
+//                parameters.append("card_fields", card_fields)
+//                parameters.append("filter", filter)
+//                parameters.append("fields", fields)
+//            }
+//        }
+//        return response.body()
+//    }
+//    suspend fun getFilteredLists(id: String, filter: String) {
+//        val response: HttpResponse = client.get {
+//            url {
+//                protocol = URLProtocol.HTTP
+//                host = " http://127.0.0.1:8080"
+//                appendPathSegments("boards", id, "lists")
+//                parameters.append("filter", filter)
+//            }
+//        }
+//        return response.body()
+//    }
 
 //    post
     suspend fun create(name: String){
