@@ -1,9 +1,10 @@
-package com.trelltech.frontend
+package com.trelltech.frontend.ui
 
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.browser.customtabs.CustomTabsIntent
+import com.trelltech.frontend.R
 
 class AuthBrowserActivity : ComponentActivity() {
     private val baseUrl = "http://10.0.2.2:8080"

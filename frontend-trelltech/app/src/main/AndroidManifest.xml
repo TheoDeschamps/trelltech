@@ -11,10 +11,10 @@
         android:label="Trelltech Frontend"
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:theme="@style/Theme.Frontendtrelltech">
+        android:theme="@style/Theme.TrellTech">
 
         <activity
-            android:name=".AuthCallbackActivity"
+            android:name=".ui.AuthCallbackActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -28,11 +28,11 @@
         </activity>
 
         <activity
-            android:name=".AuthBrowserActivity"
+            android:name=".ui.AuthBrowserActivity"
             android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

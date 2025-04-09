@@ -1,4 +1,4 @@
-package com.trelltech.frontend
+package com.trelltech.frontend.ui
 
 import okhttp3.*
 import org.json.JSONArray

@@ -1,10 +1,11 @@
-package com.trelltech.frontend
+package com.trelltech.frontend.ui
 
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import com.trelltech.frontend.SecurityModule
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request

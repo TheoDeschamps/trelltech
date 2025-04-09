@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/homeFragment">
+
+    <!-- 🏠 HOME -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.trelltech.frontend.ui.screens.HomeFragments"
+        android:label="Accueil"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_home_to_boards"
+            app:destination="@id/boardsFragment" />
+
+        <action
+            android:id="@+id/action_home_to_auth"
+            app:destination="@id/authFragment" />
+    </fragment>
+
+    <!-- 📋 BOARDS -->
+    <fragment
+        android:id="@+id/boardsFragment"
+        android:name="com.trelltech.frontend.ui.screens.BoardsFragments"
+        android:label="Boards"
+        tools:layout="@layout/fragment_boards">
+
+        <action
+            android:id="@+id/action_boards_to_lists"
+            app:destination="@id/listsFragment">
+            <argument
+                android:name="boardId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <!-- 🧱 LISTS -->
+    <fragment
+        android:id="@+id/listsFragment"
+        android:name="com.trelltech.frontend.ui.screens.ListsFragments"
+        android:label="Lists"
+        tools:layout="@layout/fragment_lists">
+
+        <action
+            android:id="@+id/action_lists_to_cards"
+            app:destination="@id/cardsFragment">
+            <argument
+                android:name="listId"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <!-- 🃏 CARDS -->
+    <fragment
+        android:id="@+id/cardsFragment"
+        android:name="com.trelltech.frontend.ui.screens.CardsFragments"
+        android:label="Cards"
+        tools:layout="@layout/fragment_cards" />
+
+    <!-- 🔐 AUTH -->
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.trelltech.frontend.ui.screens.AuthFragment"
+        android:label="Auth"
+        tools:layout="@layout/fragment_auth"/>
+    <action
+        android:id="@+id/action_auth_to_home"
+        app:destination="@id/homeFragment" />
+
+
+</navigation>

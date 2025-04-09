@@ -56,6 +56,7 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.browser:browser:1.5.0")
     implementation("androidx.security:security-crypto:1.1.0-alpha05")
+    implementation("androidx.navigation:navigation-fragment:2.8.9")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,4 +67,5 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("io.ktor:ktor-client-core:2.3.3")
     implementation("io.ktor:ktor-client-cio:2.3.3")
+    implementation("androidx.cardview:cardview:1.0.0")
 }
