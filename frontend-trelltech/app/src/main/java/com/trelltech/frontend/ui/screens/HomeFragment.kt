@@ -1,6 +1,7 @@
 package com.trelltech.frontend.ui.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.trelltech.frontend.R
 import com.trelltech.frontend.SecurityModule
 
-class HomeFragments : Fragment() {
+class HomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,7 +22,6 @@ class HomeFragments : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val token = SecurityModule.getToken(requireContext())
-
         if (token.isNullOrEmpty()) {
             findNavController().navigate(R.id.action_home_to_auth)
         }

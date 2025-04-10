@@ -8,7 +8,7 @@
     android:gravity="center"
     android:padding="24dp"
     android:background="#F9FAFB"
-    tools:context=".ui.screens.HomeFragments">
+    tools:context=".ui.screens.HomeFragment">
 
     <TextView
         android:id="@+id/textWelcome"

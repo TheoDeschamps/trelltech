@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="#F9FAFB"
-    tools:context=".ui.screens.BoardsFragments">
+    tools:context=".ui.screens.BoardsFragment">
 
     <TextView
         android:id="@+id/titlePage"
