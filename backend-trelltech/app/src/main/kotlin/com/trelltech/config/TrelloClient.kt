@@ -10,6 +10,7 @@ import io.github.cdimascio.dotenv.dotenv
 import com.trelltech.models.TrelloBoard
 import com.trelltech.models.TrelloCard
 import com.trelltech.models.TrelloList
+import com.trelltech.models.TrelloMember
 import com.trelltech.models.TrelloWorkspace
 import io.ktor.client.call.body
 import io.ktor.http.isSuccess
@@ -200,7 +201,20 @@ class TrelloClient(private val token: String) {
         return response.body()
     }
     //////// MEMBERS R////////
-    // TODO R pour les members : trouvé le membre avec son id
+    suspend fun getMember(memberId: String): TrelloMember {
+        val response: HttpResponse = client.get("$baseUrl/members/$memberId") {
+            parameter("key", apiKey)
+            parameter("token", token)
+            parameter("fields", "username,fullName")
+        }
+
+        if (!response.status.isSuccess()) {
+            throw RuntimeException("Erreur Trello getMember: ${response.status} - ${response.bodyAsText()}")
+        }
+
+        return response.body()
+    }
+
 }
 
 

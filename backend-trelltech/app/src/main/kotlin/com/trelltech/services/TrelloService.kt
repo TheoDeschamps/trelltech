@@ -7,6 +7,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import com.trelltech.models.TrelloBoard
 import com.trelltech.models.TrelloCard
 import com.trelltech.models.TrelloList
+import com.trelltech.models.TrelloMember
 import com.trelltech.models.TrelloWorkspace
 
 class TrelloService (
@@ -112,5 +113,11 @@ class TrelloService (
         val token = getTokenForUser(userId) ?: throw Exception("Token not found")
         return TrelloClient(token).getWorkspaces()
     }
+
+    suspend fun getMember(memberId: String, userId: String): TrelloMember {
+        val token = getTokenForUser(userId) ?: throw Exception("Token not found")
+        return clientFactory(token).getMember(memberId)
+    }
+
 
 }
