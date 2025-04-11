@@ -78,8 +78,7 @@ class TrelloClient(private val token: String) {
         return response.body()
     }
 
-    //////// LISTS R////////
-    // TODO ajouter create/update/delete ici ensuite les lists
+    //////// LISTS CRUD////////
 
     suspend fun getLists(boardId: String): List<TrelloList> {
         val response: HttpResponse = client.get("$baseUrl/boards/$boardId/lists") {
@@ -89,6 +88,42 @@ class TrelloClient(private val token: String) {
         }
 
         return response.body<List<TrelloList>>()
+    }
+
+    suspend fun createList(boardId: String, name: String): TrelloList {
+        val response: HttpResponse = client.post("$baseUrl/lists") {
+            parameter("key", apiKey)
+            parameter("token", token)
+            parameter("name", name)
+            parameter("idBoard", boardId)
+        }
+
+        if (!response.status.isSuccess()) {
+            val errorText = response.bodyAsText()
+            throw RuntimeException("Erreur Trello: ${response.status} - $errorText")
+        }
+        return response.body()
+    }
+
+    suspend fun updateList(listId: String, name: String): TrelloList {
+        val response: HttpResponse = client.put("$baseUrl/lists/$listId") {
+            parameter("key", apiKey)
+            parameter("token", token)
+            parameter("name", name)
+        }
+
+        if (!response.status.isSuccess()) {
+            throw RuntimeException("Erreur Trello: ${response.status} - ${response.bodyAsText()}")
+        }
+
+        return response.body()
+    }
+
+    suspend fun deleteList(listId: String) {
+        client.delete("$baseUrl/lists/$listId") {
+            parameter("key", apiKey)
+            parameter("token", token)
+        }
     }
 
     //////// CARDS CRUD////////

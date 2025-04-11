@@ -53,7 +53,7 @@ fun Application.module() {
         authRoutes()
         tokenRoutes(tokenService)
         boardRoutes(trelloService)
-        listRoutes()
+        listRoutes(trelloService)
         cardRoutes()
         workspaceRoutes()
     }

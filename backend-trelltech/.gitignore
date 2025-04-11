@@ -6,7 +6,6 @@ build
 
 # Ignore env file
 .env
-/http-requests/test-api-cards.http
-/http-requests/test-api-boards.http
 
 local.properties
+/http-requests/

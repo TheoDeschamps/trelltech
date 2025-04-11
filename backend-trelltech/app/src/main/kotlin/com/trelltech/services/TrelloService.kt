@@ -51,13 +51,34 @@ class TrelloService (
         return clientFactory(token).updateBoard(boardId, name.toString(), desc)
     }
 
-    ////////LISTS R////////
+    ////////LISTS CRUD////////
     suspend fun getLists(boardId: String, userId: String): List<TrelloList> {
         val token = getTokenForUser(userId)
             ?: throw IllegalStateException("Token not found for user $userId")
 
         val client = TrelloClient(token)
         return client.getLists(boardId)
+    }
+
+    suspend fun createList(boardId: String, name: String, userId: String): TrelloList {
+        val token = getTokenForUser(userId)
+            ?: throw IllegalStateException("Token not found for user $userId")
+
+        return clientFactory(token).createList(boardId, name)
+    }
+
+    suspend fun updateList(listId: String, name: String, userId: String): TrelloList {
+        val token = getTokenForUser(userId)
+            ?: throw IllegalStateException("Token not found for user $userId")
+
+        return clientFactory(token).updateList(listId, name)
+    }
+
+    suspend fun deleteList(listId: String, userId: String) {
+        val token = getTokenForUser(userId)
+            ?: throw IllegalStateException("Token not found for user $userId")
+
+        clientFactory(token).deleteList(listId)
     }
 
     ////////CARDS////////
