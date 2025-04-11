@@ -1,7 +1,6 @@
 package com.trelltech.config
 
 import io.ktor.client.*
-import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -30,8 +29,7 @@ class TrelloClient(private val token: String) {
     private val baseUrl = "https://api.trello.com/1"
     private val apiKey = dotenv["TRELLO_CLIENT_ID"] ?: error("Missing TRELLO_CLIENT_ID in env")
 
-    //////// BOARDS R////////
-    // TODO ajouter create/update/delete ici ensuite les boards
+    //////// BOARDS CRUD////////
 
     suspend fun getBoards(): List<TrelloBoard> {
         val response: HttpResponse = client.get("$baseUrl/members/me/boards") {
@@ -41,6 +39,43 @@ class TrelloClient(private val token: String) {
         }
 
         return response.body<List<TrelloBoard>>()
+    }
+
+    suspend fun createBoard(name: String, desc: String? = null): TrelloBoard {
+        val response: HttpResponse = client.post("$baseUrl/boards") {
+            parameter("key", apiKey)
+            parameter("token", token)
+            parameter("name", name)
+            if (desc != null) parameter("desc", desc)
+        }
+
+        if (!response.status.isSuccess()) {
+            val errorText = response.bodyAsText()
+            throw RuntimeException("Erreur Trello: ${response.status} - $errorText")
+        }
+        return response.body()
+    }
+
+    suspend fun deleteBoard(boardId: String) {
+        client.delete("$baseUrl/boards/$boardId") {
+            parameter("key", apiKey)
+            parameter("token", token)
+        }
+    }
+
+    suspend fun updateBoard(boardId: String, name: String, desc: String?): TrelloBoard {
+        val response: HttpResponse = client.put("$baseUrl/boards/$boardId") {
+            parameter("key", apiKey)
+            parameter("token", token)
+            parameter("name", name)
+            if (desc != null) parameter("desc", desc)
+        }
+
+        if (!response.status.isSuccess()) {
+            throw RuntimeException("Erreur Trello: ${response.status} - ${response.bodyAsText()}")
+        }
+
+        return response.body()
     }
 
     //////// LISTS R////////
@@ -129,8 +164,8 @@ class TrelloClient(private val token: String) {
         }
         return response.body()
     }
-
-
+    //////// MEMBERS R////////
+    // TODO R pour les members : trouvé le membre avec son id
 }
 
 

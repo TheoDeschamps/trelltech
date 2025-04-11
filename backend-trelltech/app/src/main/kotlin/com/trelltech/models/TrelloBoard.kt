@@ -10,7 +10,7 @@ data class TrelloBoard(
     val shortUrl: String,
     val closed: Boolean,
     val pinned: Boolean,
-    val starred: Boolean,
+    val starred: Boolean? = null,
     val idOrganization: String? = null,
     val idMemberCreator: String? = null,
     val desc: String? = null,
