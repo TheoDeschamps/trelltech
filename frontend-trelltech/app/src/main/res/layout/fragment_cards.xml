@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9FAFB"
+    tools:context=".ui.screens.CardsFragment">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,10 +26,39 @@
         android:textColor="#111827"
         android:layout_marginBottom="12dp" />
 
+    <Spinner
+        android:id="@+id/listSelector"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/spinner_background"
+        android:popupBackground="#FFFFFF"
+        android:spinnerMode="dropdown"
+        android:textAlignment="center"
+        android:textColor="#111827"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingBottom="8dp"/>
+
 </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:contentDescription="Ajouter une carte"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@android:color/white"
+        android:backgroundTint="@color/teal_700" />
+
+</FrameLayout>

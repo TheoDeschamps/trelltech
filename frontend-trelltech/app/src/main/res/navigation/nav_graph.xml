@@ -65,6 +65,10 @@
         <argument
             android:name="listId"
             app:argType="string" />
+
+        <argument
+            android:name="boardId"
+            app:argType="string" />
     </fragment>
 
     <!-- 🔐 AUTH -->
