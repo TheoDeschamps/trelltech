@@ -1,5 +1,6 @@
 package com.trelltech.frontend.ui
 
+import android.util.Log
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -47,4 +48,76 @@ class Post {
             }
         })
     }
+
+    fun postBoard(
+        name: String,
+        desc: String = "",
+        userId: String = "defaultUser",
+        callback: (Boolean) -> Unit
+    ) {
+        val url = "http://10.0.2.2:8080/boards?userId=$userId"
+
+        val jsonBody = JSONObject().apply {
+            put("name", name)
+            put("desc", desc)
+        }
+
+        val requestBody = jsonBody.toString()
+            .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+        val request = Request.Builder()
+            .url(url)
+            .post(requestBody)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                callback(false)
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    callback(it.isSuccessful)
+                }
+            }
+        })
+    }
+
+    fun postList(
+        boardId: String,
+        name: String,
+        userId: String = "defaultUser",
+        callback: (Boolean) -> Unit
+    ) {
+        val url = "http://10.0.2.2:8080/lists?userId=$userId"
+
+        val jsonBody = JSONObject().apply {
+            put("boardId", boardId)
+            put("name", name)
+        }
+
+        val requestBody = jsonBody.toString()
+            .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+        val request = Request.Builder()
+            .url(url)
+            .post(requestBody)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                callback(false)
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    callback(it.isSuccessful)
+                }
+            }
+        })
+    }
+
+
 }
