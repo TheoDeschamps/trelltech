@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,8 @@ import com.trelltech.frontend.data.models.Board
 import org.json.JSONObject
 import com.trelltech.frontend.ui.Get
 import com.trelltech.frontend.data.models.Lists
+import android.app.AlertDialog
+
 
 class BoardsFragment : Fragment() {
 
@@ -39,6 +42,36 @@ class BoardsFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
+
+        val fab = view.findViewById<View>(R.id.fabAddBoard)
+
+        fab.setOnClickListener {
+            val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_board, null)
+            val nameInput = dialogView.findViewById<EditText>(R.id.editBoardName)
+            val descInput = dialogView.findViewById<EditText>(R.id.editBoardDesc)
+
+            AlertDialog.Builder(requireContext())
+                .setTitle("➕ Nouveau board")
+                .setView(dialogView)
+                .setPositiveButton("Créer") { _, _ ->
+                    val name = nameInput.text.toString()
+                    val desc = descInput.text.toString()
+
+                    com.trelltech.frontend.ui.Post().postBoard(name, desc) { success ->
+                        requireActivity().runOnUiThread {
+                            if (success) {
+                                Log.d("BoardsFragment", "✅ Board créé")
+                                // Refresh des boards (très simple pour l'instant)
+                                findNavController().navigate(R.id.boardsFragment)
+                            } else {
+                                Log.e("BoardsFragment", "❌ Échec création board")
+                            }
+                        }
+                    }
+                }
+                .setNegativeButton("Annuler", null)
+                .show()
+        }
 
         getter.getBoards { jsonBoards ->
             val boardList = mutableListOf<Board>()
@@ -85,8 +118,6 @@ class BoardsFragment : Fragment() {
                                     desc = cardJson.optString("desc", ""),
                                     memberList = memberList
                                 )
-
-                                Log.d("BoardsFragment", "🃏 Card: ${cardObj.name}")
                             }
                         }
                     }

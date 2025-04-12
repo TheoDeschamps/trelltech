@@ -34,7 +34,7 @@ class Get {
     }
 
     fun getLists(boardId: String, callback: (List<JSONObject>) -> Unit) {
-        val url = "http://10.0.2.2:8080/boards/$boardId/lists?userId=defaultUser"
+        val url = "http://10.0.2.2:8080/lists/boards/$boardId?userId=defaultUser"
         val request = Request.Builder()
             .url(url)
             .build()

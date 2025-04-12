@@ -30,10 +30,10 @@ fun Route.listRoutes(service: TrelloService) {
         }
 
         post {
-            val params = call.receiveParameters()
-            val boardId = params["boardId"]
-            val name = params["name"]
-            val userId = params["userId"]
+            val body = call.receive<Map<String, String>>()
+            val boardId = body["boardId"]
+            val name = body["name"]
+            val userId = call.request.queryParameters["userId"]
 
             if (boardId.isNullOrBlank() || name.isNullOrBlank() || userId.isNullOrBlank()) {
                 call.respond(HttpStatusCode.BadRequest, "Missing boardId, name or userId")
