@@ -3,6 +3,7 @@ package com.trelltech.frontend.ui.components
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -11,7 +12,8 @@ import com.trelltech.frontend.R
 import com.trelltech.frontend.data.models.Board
 
 class BoardAdapter(
-    private val onBoardClick: (Board) -> Unit
+    private val onBoardClick: (Board) -> Unit,
+    private val onDeleteClick: (Board) -> Unit
 ) : ListAdapter<Board, BoardAdapter.BoardViewHolder>(DIFF) {
 
     inner class BoardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -22,6 +24,10 @@ class BoardAdapter(
 
             itemView.setOnClickListener {
                 onBoardClick(board)
+            }
+
+            itemView.findViewById<ImageView>(R.id.btnDeleteBoard).setOnClickListener {
+                onDeleteClick(board)
             }
         }
     }

@@ -109,10 +109,30 @@ class CardsFragment : Fragment() {
 
         }
 
-        adapter = CardAdapter { card ->
-            Log.d("CardsFragment", "Clicked card: ${card.name}")
-
-        }
+        adapter = CardAdapter(
+            onClick = { card ->
+                Log.d("CardsFragment", "Clicked card: ${card.name}")
+            },
+            onDelete = { card ->
+                AlertDialog.Builder(requireContext())
+                    .setTitle("❌ Supprimer la carte")
+                    .setMessage("Confirmer la suppression de « ${card.name} » ?")
+                    .setPositiveButton("Supprimer") { _, _ ->
+                        com.trelltech.frontend.ui.Delete().deleteCard(card.id) { success ->
+                            requireActivity().runOnUiThread {
+                                if (success) {
+                                    Log.d("CardsFragment", "✅ Carte supprimée")
+                                    loadCardsForList(card.idList)
+                                } else {
+                                    Log.e("CardsFragment", "❌ Échec suppression carte")
+                                }
+                            }
+                        }
+                    }
+                    .setNegativeButton("Annuler", null)
+                    .show()
+            }
+        )
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter

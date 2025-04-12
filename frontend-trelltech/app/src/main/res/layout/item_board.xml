@@ -12,37 +12,60 @@
     android:clickable="true"
     android:focusable="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/boardContent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Board Title"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="4dp" />
+            android:orientation="vertical"
+            android:layout_toStartOf="@id/btnDeleteBoard"
+            android:layout_toLeftOf="@id/btnDeleteBoard"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginEnd="48dp">
 
-        <TextView
-            android:id="@+id/creator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Created by ..."
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
-            android:layout_marginBottom="2dp" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Board Title"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp" />
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description of the board goes here"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/creator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Created by ..."
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:layout_marginBottom="2dp" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description of the board goes here"
+                android:textColor="@android:color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnDeleteBoard"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:src="@android:drawable/ic_delete"
+            android:tint="#F87171"
+            android:contentDescription="Supprimer le board"
+            android:layout_centerVertical="true"
+            android:padding="4dp" />
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

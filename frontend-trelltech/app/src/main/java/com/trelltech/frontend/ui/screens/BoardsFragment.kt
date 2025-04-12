@@ -35,10 +35,33 @@ class BoardsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerBoards)
 
-        adapter = BoardAdapter { selectedBoard ->
-            val action = BoardsFragmentDirections.actionBoardsToLists(selectedBoard.id)
-            findNavController().navigate(action)
-        }
+        adapter = BoardAdapter(
+            onBoardClick = { selectedBoard ->
+                val action = BoardsFragmentDirections.actionBoardsToLists(selectedBoard.id)
+                findNavController().navigate(action)
+            },
+            onDeleteClick = { selectedBoard ->
+                val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_confirm_delete, null)
+                val alertDialog = AlertDialog.Builder(requireContext())
+                    .setTitle("❌ Supprimer le board ?")
+                    .setView(dialogView)
+                    .setPositiveButton("Confirmer") { _, _ ->
+                        com.trelltech.frontend.ui.Delete().deleteBoard(selectedBoard.id, "defaultUser") { success ->
+                            requireActivity().runOnUiThread {
+                                if (success) {
+                                    Log.d("BoardsFragment", "🗑️ Board supprimé")
+                                    refreshBoards()
+                                } else {
+                                    Log.e("BoardsFragment", "❌ Erreur suppression board")
+                                }
+                            }
+                        }
+                    }
+                    .setNegativeButton("Annuler", null)
+                    .create()
+                alertDialog.show()
+            }
+        )
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
@@ -130,4 +153,21 @@ class BoardsFragment : Fragment() {
             }
         }
     }
+
+    private fun refreshBoards() {
+        getter.getBoards { jsonBoards ->
+            val boardList = jsonBoards.map { boardJson ->
+                Board(
+                    id = boardJson.optString("id", ""),
+                    name = boardJson.optString("name", "No name"),
+                    creator = boardJson.optString("idMemberCreator", "Unknown"),
+                    description = boardJson.optString("desc", "No description")
+                )
+            }
+            requireActivity().runOnUiThread {
+                adapter.submitList(boardList)
+            }
+        }
+    }
+
 }

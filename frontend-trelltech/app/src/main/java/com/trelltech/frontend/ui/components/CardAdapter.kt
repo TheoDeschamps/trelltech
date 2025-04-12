@@ -3,13 +3,15 @@ package com.trelltech.frontend.ui.components
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.trelltech.frontend.R
 import com.trelltech.frontend.data.models.Card
 
 class CardAdapter(
-    private val onClick: (Card) -> Unit
+    private val onClick: (Card) -> Unit,
+    private val onDelete: (Card) -> Unit
 ) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
     private val items = mutableListOf<Card>()
@@ -28,18 +30,26 @@ class CardAdapter(
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val item = items[position]
         holder.bind(item)
-        holder.itemView.setOnClickListener { onClick(item) }
     }
 
     override fun getItemCount(): Int = items.size
 
-    class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val name = itemView.findViewById<TextView>(R.id.cardTitle)
         private val desc = itemView.findViewById<TextView>(R.id.cardDesc)
+        private val deleteIcon = itemView.findViewById<ImageView>(R.id.deleteCardIcon)
 
         fun bind(card: Card) {
             name.text = card.name
             desc.text = card.desc
+
+            itemView.setOnClickListener {
+                onClick(card)
+            }
+
+            deleteIcon.setOnClickListener {
+                onDelete(card)
+            }
         }
     }
 }

@@ -79,13 +79,39 @@ class ListsFragment : Fragment() {
                 .show()
         }
 
-        adapter = ListAdapter { selectedList ->
-            val action = ListsFragmentDirections.actionListsToCards(
-                selectedList.id,
-                selectedList.idBoard
-            )
-            findNavController().navigate(action)
-        }
+        adapter = ListAdapter(
+            onClick = { selectedList ->
+                val action = ListsFragmentDirections.actionListsToCards(
+                    selectedList.id,
+                    selectedList.idBoard
+                )
+                findNavController().navigate(action)
+            },
+            onDelete = { selectedList ->
+                val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_confirm_delete, null)
+
+                AlertDialog.Builder(requireContext())
+                    .setTitle("🗑️ Supprimer cette liste ?")
+                    .setView(dialogView)
+                    .setPositiveButton("Supprimer") { _, _ ->
+                        com.trelltech.frontend.ui.Delete().deleteList(
+                            selectedList.id,
+                            "defaultUser"
+                        ) { success ->
+                            requireActivity().runOnUiThread {
+                                if (success) {
+                                    Log.d("ListsFragment", "✅ Liste supprimée")
+                                    loadListsForBoard(selectedList.idBoard)
+                                } else {
+                                    Log.e("ListsFragment", "❌ Erreur suppression liste")
+                                }
+                            }
+                        }
+                    }
+                    .setNegativeButton("Annuler", null)
+                    .show()
+            }
+        )
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter

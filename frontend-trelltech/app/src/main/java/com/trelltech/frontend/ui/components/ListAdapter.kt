@@ -3,13 +3,15 @@ package com.trelltech.frontend.ui.components
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.trelltech.frontend.R
 import com.trelltech.frontend.data.models.Lists
 
 class ListAdapter(
-    private val onClick: (Lists) -> Unit
+    private val onClick: (Lists) -> Unit,
+    private val onDelete: (Lists) -> Unit
 ) : RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
 
     private val items = mutableListOf<Lists>()
@@ -29,6 +31,7 @@ class ListAdapter(
         val item = items[position]
         holder.bind(item)
         holder.itemView.setOnClickListener { onClick(item) }
+        holder.deleteIcon.setOnClickListener { onDelete(item) }
     }
 
     override fun getItemCount(): Int = items.size
@@ -36,6 +39,7 @@ class ListAdapter(
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val title = itemView.findViewById<TextView>(R.id.listTitle)
         private val status = itemView.findViewById<TextView>(R.id.listStatus)
+        val deleteIcon = itemView.findViewById<ImageView>(R.id.deleteListIcon)
 
         fun bind(list: Lists) {
             title.text = list.name
