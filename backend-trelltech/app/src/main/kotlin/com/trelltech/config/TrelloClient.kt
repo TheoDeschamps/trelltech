@@ -86,6 +86,7 @@ class TrelloClient(private val token: String) {
             parameter("key", apiKey)
             parameter("token", token)
             parameter("fields", "all")
+            parameter("filter", "open")
         }
 
         return response.body<List<TrelloList>>()
@@ -120,12 +121,19 @@ class TrelloClient(private val token: String) {
         return response.body()
     }
 
-    suspend fun deleteList(listId: String) {
-        client.delete("$baseUrl/lists/$listId") {
+    suspend fun deleteList(listId: String) { // archive list
+        val response: HttpResponse = client.put("$baseUrl/lists/$listId/closed") {
             parameter("key", apiKey)
             parameter("token", token)
+            parameter("value", true)
+        }
+
+        if (!response.status.isSuccess()) {
+            val errorText = response.bodyAsText()
+            throw RuntimeException("Erreur Trello archiveList: ${response.status} - $errorText")
         }
     }
+
 
     //////// CARDS CRUD////////
 
