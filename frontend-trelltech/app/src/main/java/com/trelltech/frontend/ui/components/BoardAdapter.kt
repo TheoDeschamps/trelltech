@@ -13,7 +13,8 @@ import com.trelltech.frontend.data.models.Board
 
 class BoardAdapter(
     private val onBoardClick: (Board) -> Unit,
-    private val onDeleteClick: (Board) -> Unit
+    private val onDeleteClick: (Board) -> Unit,
+    private val onEditClick: (Board) -> Unit
 ) : ListAdapter<Board, BoardAdapter.BoardViewHolder>(DIFF) {
 
     inner class BoardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -28,6 +29,10 @@ class BoardAdapter(
 
             itemView.findViewById<ImageView>(R.id.btnDeleteBoard).setOnClickListener {
                 onDeleteClick(board)
+            }
+
+            itemView.findViewById<ImageView>(R.id.btnEditBoard).setOnClickListener {
+                onEditClick(board)
             }
         }
     }

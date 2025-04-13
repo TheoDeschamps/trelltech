@@ -42,7 +42,7 @@ class BoardsFragment : Fragment() {
             },
             onDeleteClick = { selectedBoard ->
                 val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_confirm_delete, null)
-                val alertDialog = AlertDialog.Builder(requireContext())
+                AlertDialog.Builder(requireContext())
                     .setTitle("❌ Supprimer le board ?")
                     .setView(dialogView)
                     .setPositiveButton("Confirmer") { _, _ ->
@@ -58,8 +58,36 @@ class BoardsFragment : Fragment() {
                         }
                     }
                     .setNegativeButton("Annuler", null)
-                    .create()
-                alertDialog.show()
+                    .show()
+            },
+            onEditClick = { selectedBoard ->
+                val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_board, null)
+                val nameInput = dialogView.findViewById<EditText>(R.id.editBoardName)
+                val descInput = dialogView.findViewById<EditText>(R.id.editBoardDesc)
+
+                nameInput.setText(selectedBoard.name)
+                descInput.setText(selectedBoard.description)
+
+                AlertDialog.Builder(requireContext())
+                    .setTitle("✏️ Modifier le board")
+                    .setView(dialogView)
+                    .setPositiveButton("Enregistrer") { _, _ ->
+                        val newName = nameInput.text.toString()
+                        val newDesc = descInput.text.toString()
+
+                        com.trelltech.frontend.ui.Put().updateBoard(selectedBoard.id, newName, newDesc) { success ->
+                            requireActivity().runOnUiThread {
+                                if (success) {
+                                    Log.d("BoardsFragment", "📝 Board modifié")
+                                    refreshBoards()
+                                } else {
+                                    Log.e("BoardsFragment", "❌ Erreur modification board")
+                                }
+                            }
+                        }
+                    }
+                    .setNegativeButton("Annuler", null)
+                    .show()
             }
         )
 

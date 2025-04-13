@@ -11,7 +11,8 @@ import com.trelltech.frontend.data.models.Card
 
 class CardAdapter(
     private val onClick: (Card) -> Unit,
-    private val onDelete: (Card) -> Unit
+    private val onDelete: (Card) -> Unit,
+    private val onEdit: (Card) -> Unit
 ) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
     private val items = mutableListOf<Card>()
@@ -38,6 +39,7 @@ class CardAdapter(
         private val name = itemView.findViewById<TextView>(R.id.cardTitle)
         private val desc = itemView.findViewById<TextView>(R.id.cardDesc)
         private val deleteIcon = itemView.findViewById<ImageView>(R.id.deleteCardIcon)
+        private val editIcon = itemView.findViewById<ImageView>(R.id.editCardIcon)
 
         fun bind(card: Card) {
             name.text = card.name
@@ -49,6 +51,10 @@ class CardAdapter(
 
             deleteIcon.setOnClickListener {
                 onDelete(card)
+            }
+
+            editIcon.setOnClickListener {
+                onEdit(card)
             }
         }
     }

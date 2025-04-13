@@ -45,6 +45,18 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/editListIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_menu_edit"
+            android:tint="#FACC15"
+            android:contentDescription="Modifier la liste"
+            android:padding="4dp"
+            android:layout_marginStart="12dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <ImageView
             android:id="@+id/deleteListIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -52,7 +64,7 @@
             android:tint="@android:color/white"
             android:contentDescription="Supprimer la liste"
             android:padding="4dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="12dp"
             android:clickable="true"
             android:focusable="true"/>
     </LinearLayout>

@@ -57,9 +57,23 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/btnEditBoard"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="48dp"
+            android:src="@android:drawable/ic_menu_edit"
+            android:tint="#FACC15"
+            android:contentDescription="Modifier le board"
+            android:layout_centerVertical="true"
+            android:padding="4dp" />
+
+        <ImageView
             android:id="@+id/btnDeleteBoard"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginStart="12dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:src="@android:drawable/ic_delete"

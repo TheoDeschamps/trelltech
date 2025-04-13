@@ -131,6 +131,36 @@ class CardsFragment : Fragment() {
                     }
                     .setNegativeButton("Annuler", null)
                     .show()
+            },
+            onEdit = { card ->
+                val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_card, null)
+                val nameInput = dialogView.findViewById<EditText>(R.id.editCardName)
+                val descInput = dialogView.findViewById<EditText>(R.id.editCardDesc)
+
+                // Pre-fill with existing data
+                nameInput.setText(card.name)
+                descInput.setText(card.desc)
+
+                AlertDialog.Builder(requireContext())
+                    .setTitle("✏️ Modifier la carte")
+                    .setView(dialogView)
+                    .setPositiveButton("Mettre à jour") { _, _ ->
+                        val newName = nameInput.text.toString()
+                        val newDesc = descInput.text.toString()
+
+                        com.trelltech.frontend.ui.Put().updateCard(card.id, newName, newDesc) { success ->
+                            requireActivity().runOnUiThread {
+                                if (success) {
+                                    Log.d("CardsFragment", "✅ Carte modifiée")
+                                    loadCardsForList(card.idList)
+                                } else {
+                                    Log.e("CardsFragment", "❌ Échec modification carte")
+                                }
+                            }
+                        }
+                    }
+                    .setNegativeButton("Annuler", null)
+                    .show()
             }
         )
 

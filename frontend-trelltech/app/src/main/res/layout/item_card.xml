@@ -45,6 +45,15 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/editCardIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="12dp"
+            android:src="@android:drawable/ic_menu_edit"
+            android:tint="@android:color/white"
+            android:contentDescription="Modifier la carte"/>
+
+        <ImageView
             android:id="@+id/deleteCardIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"

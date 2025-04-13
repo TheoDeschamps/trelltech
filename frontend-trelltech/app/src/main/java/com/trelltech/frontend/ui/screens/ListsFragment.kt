@@ -110,6 +110,30 @@ class ListsFragment : Fragment() {
                     }
                     .setNegativeButton("Annuler", null)
                     .show()
+            },
+            onEdit = { selectedList ->
+                val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_add_list, null)
+                val nameInput = dialogView.findViewById<EditText>(R.id.editListName)
+                nameInput.setText(selectedList.name)
+
+                AlertDialog.Builder(requireContext())
+                    .setTitle("✏️ Modifier la liste")
+                    .setView(dialogView)
+                    .setPositiveButton("Enregistrer") { _, _ ->
+                        val newName = nameInput.text.toString()
+                        com.trelltech.frontend.ui.Put().updateList(selectedList.id, newName) { success ->
+                            requireActivity().runOnUiThread {
+                                if (success) {
+                                    Log.d("ListsFragment", "✅ Liste modifiée")
+                                    loadListsForBoard(selectedList.idBoard)
+                                } else {
+                                    Log.e("ListsFragment", "❌ Échec modification liste")
+                                }
+                            }
+                        }
+                    }
+                    .setNegativeButton("Annuler", null)
+                    .show()
             }
         )
 
