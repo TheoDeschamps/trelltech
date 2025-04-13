@@ -1,13 +1,19 @@
-#   🛴 Trelltech – Backend V1.5 (Trottinette)
+#   🛹 Trelltech –  V1 (skateboard)
 
-V1 du backend de **Trelltech**, une application de gestion de projet connectée à l’API Trello.
+V1 fullstack de **Trelltech**, une application de gestion de projet connectée à l’API Trello.
+
+```
+Front : V1
+Backend : V1.5
+```
 
 ## 🚀 Objectif de la V1
 
-- Implémentation des routes principales en lecture/écriture sur les **boards**, **lists**, **cards** et **workspaces** Trello.
+- Implémentation toutes les routes principales en CRUD sur les **boards**, **lists**, **cards** et **workspaces** Trello.
 - Connexion OAuth et persistance des tokens utilisateurs.
 - Version sans Docker (hors base de données).
 - Backend en **Kotlin / Ktor**, avec **Exposed** pour la gestion de la base de données.
+- Frontend en **Android** (Kotlin) avec **Jetpack Compose**.
 
 ---
 
@@ -53,7 +59,7 @@ Le serveur sera disponible sur `http://localhost:8080`
 
 ---
 
-## 📌 Endpoints disponibles (V1)
+## 📌 Endpoints disponibles (V1.5)
 
 ### 🔐 Auth
 
@@ -213,14 +219,6 @@ L'architecture du backend est décrite dans `backend-trelltech/Docs/architecture
 
 ---
 
-## 🏑 Prochaines étapes (V2)
-
-- Finaliser les CRUD pour `lists`, `boards`, `workspaces`
-- Couvrir tous les services par des tests unitaires
-- Ajouter une séquence de tests complète
-- Ajouter la documentation utilisateur (bonus)
-
----
 
 ## 📃 Licence
 
